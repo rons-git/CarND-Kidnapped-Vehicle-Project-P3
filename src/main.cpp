@@ -16,7 +16,6 @@ std::string hasData(std::string s) {
   auto found_null = s.find("null");
   auto b1 = s.find_first_of("[");
   auto b2 = s.find_first_of("]");
-  cout << "b1:" << b1 << " b2:" << b2 << endl;
   if (found_null != std::string::npos) {
     return "";
   }
@@ -56,7 +55,6 @@ int main()
     {
 
       auto s = hasData(std::string(data));
-      cout << "Data: " << s << endl;
       if (s != "") {
 
 
@@ -65,7 +63,6 @@ int main()
 
         if (event == "telemetry") {
           // j[1] is the data JSON object
-
 
           if (!pf.initialized()) {
 
@@ -114,10 +111,7 @@ int main()
 
 		  // Update the weights and resample
 		  pf.updateWeights(sensor_range, sigma_landmark, noisy_observations, map);
-		  cout << "Weights Updated" << endl;
-
 		  pf.resample();
-		  cout << "Finished Resampling" << endl;
 
 		  // Calculate and output the average weighted error of the particle filter over all time steps so far.
 		  vector<Particle> particles = pf.particles;
