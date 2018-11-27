@@ -1,143 +1,73 @@
-# Overview
-This repository contains all the code needed to complete the final project for the Localization course in Udacity's Self-Driving Car Nanodegree.
+Project 2, Term 2: Unscented Kalman Filters
+=======================
 
-#### Submission
-All you will submit is your completed version of `particle_filter.cpp`, which is located in the `src` directory. You should probably do a `git pull` before submitting to verify that your project passes the most up-to-date version of the grading code (there are some parameters in `src/main.cpp` which govern the requirements on accuracy and run time.)
+### Final Result
 
-## Project Introduction
-Your robot has been kidnapped and transported to a new location! Luckily it has a map of this location, a (noisy) GPS estimate of its initial location, and lots of (noisy) sensor and control data.
+![](media/Unscented_Kalman.gif)
 
-In this project you will implement a 2 dimensional particle filter in C++. Your particle filter will be given a map and some initial localization information (analogous to what a GPS would provide). At each time step your filter will also get observation and control data.
+### Compiling
 
-## Running the Code
-This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
+#### Code must compile without errors using cmake and make.
 
-This repository includes two files that can be used to set up and install uWebSocketIO for either Linux or Mac systems. For windows you can use either Docker, VMware, or even Windows 10 Bash on Ubuntu to install uWebSocketIO.
+The code compiles without errors; however it generates numerous warnings. To correct this issue, CMakeLists.txt was modified as follows:
 
-Once the install for uWebSocketIO is complete, the main program can be built and ran by doing the following from the project top directory.
+| From:                                | To:                                     |
+|--------------------------------------|-----------------------------------------|
+| set(CMAKE_CXX_FLAGS "\${CXX_FLAGS}") | set(CMAKE_CXX_FLAGS "\${CXX_FLAGS} -w") |
 
-1. mkdir build
-2. cd build
-3. cmake ..
-4. make
-5. ./particle_filter
+After the above modification, the [cmake] and [make] output looks good:
 
-Alternatively some scripts have been included to streamline this process, these can be leveraged by executing the following in the top directory of the project:
+![](media/Compile.png)
 
-1. ./clean.sh
-2. ./build.sh
-3. ./run.sh
+### Accuracy
 
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
+**px, py, vx, vy output coordinates must have an RMSE \<= [.09, .10, .40, .30]
+when using the file: "obj_pose-laser-radar-synthetic-input.txt" which is the
+same data file the simulator uses for Dataset 1.**
 
-Note that the programs that need to be written to accomplish the project are src/particle_filter.cpp, and particle_filter.h
+Using Dataset 1, the RMSE is well under the target values for X, Y, VX and VY:
 
-The program main.cpp has already been filled out, but feel free to modify it.
+![](media/RMSE1.png)
 
-Here is the main protocol that main.cpp uses for uWebSocketIO in communicating with the simulator.
+Using Dataset 2, the RMSE is also below target on all values except VY:
 
-INPUT: values provided by the simulator to the c++ program
+![](media/RMSE2.png)
 
-// sense noisy position data from the simulator
+### Follows the Correct Algorithm
 
-["sense_x"]
+**Your Sensor Fusion algorithm follows the general processing flow as taught in
+the preceding lessons.**
 
-["sense_y"]
+The Sensor Fusion algorithm follows the UKF Roadmap as described in the Unscented Kalman Filters lesson of Udacity's Self-Driving Car Engineer Nanodegree Program, Part 2 -  Sensor Fusion, Localization and Control:
 
-["sense_theta"]
+![](media/UKF_Roadmap.png)
 
-// get the previous velocity and yaw rate to predict the particle's transitioned state
+**Your Kalman Filter algorithm handles the first measurements appropriately.**
 
-["previous_velocity"]
+The algorithm uses the first measurements to initialize the state vector. The state vector is initialized at the beginning of the UKD::ProcessMeasurement function.
 
-["previous_yawrate"]
+**Your Kalman Filter algorithm first predicts then updates.**
 
-// receive noisy observation data from the simulator, in a respective list of x/y values
+Upon receiving a measurement after the first, the algorithm predicts object
+position to the current timestamp and then updates the prediction using the new
+measurement.
 
-["sense_observations_x"]
+#### Your Kalman Filter can handle radar and lidar measurements.
 
-["sense_observations_y"]
+The algorithm calls the same function for both radar and lidar measurements; however, it sets up the appropriate matrices given the type of measurement.
 
+### Code Efficiency
 
-OUTPUT: values provided by the c++ program to the simulator
+**Your algorithm should avoid unnecessary calculations.**
 
-// best particle values used for calculating the error evaluation
+I avoided the following:
 
-["best_particle_x"]
+-   Running the exact same calculation repeatedly when I could run it once,
+    store the value and then reuse the value later,
 
-["best_particle_y"]
+-   Loops that run too many times,
 
-["best_particle_theta"]
+-   Creating unnecessarily complex data structures when simpler structures work
+    equivalently,
 
-//Optional message data used for debugging particle's sensing and associations
-
-// for respective (x,y) sensed positions ID label
-
-["best_particle_associations"]
-
-// for respective (x,y) sensed positions
-
-["best_particle_sense_x"] <= list of sensed x positions
-
-["best_particle_sense_y"] <= list of sensed y positions
-
-
-Your job is to build out the methods in `particle_filter.cpp` until the simulator output says:
-
-```
-Success! Your particle filter passed!
-```
-
-# Implementing the Particle Filter
-The directory structure of this repository is as follows:
-
-```
-root
-|   build.sh
-|   clean.sh
-|   CMakeLists.txt
-|   README.md
-|   run.sh
-|
-|___data
-|   |   
-|   |   map_data.txt
-|   
-|   
-|___src
-    |   helper_functions.h
-    |   main.cpp
-    |   map.h
-    |   particle_filter.cpp
-    |   particle_filter.h
-```
-
-The only file you should modify is `particle_filter.cpp` in the `src` directory. The file contains the scaffolding of a `ParticleFilter` class and some associated methods. Read through the code, the comments, and the header file `particle_filter.h` to get a sense for what this code is expected to do.
-
-If you are interested, take a look at `src/main.cpp` as well. This file contains the code that will actually be running your particle filter and calling the associated methods.
-
-## Inputs to the Particle Filter
-You can find the inputs to the particle filter in the `data` directory.
-
-#### The Map*
-`map_data.txt` includes the position of landmarks (in meters) on an arbitrary Cartesian coordinate system. Each row has three columns
-1. x position
-2. y position
-3. landmark id
-
-### All other data the simulator provides, such as observations and controls.
-
-> * Map data provided by 3D Mapping Solutions GmbH.
-
-## Success Criteria
-If your particle filter passes the current grading code in the simulator (you can make sure you have the current version at any time by doing a `git pull`), then you should pass!
-
-The things the grading code is looking for are:
-
-
-1. **Accuracy**: your particle filter should localize vehicle position and yaw to within the values specified in the parameters `max_translation_error` and `max_yaw_error` in `src/main.cpp`.
-
-2. **Performance**: your particle filter should complete execution within the time of 100 seconds.
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+-   Unnecessary control flow checks.
