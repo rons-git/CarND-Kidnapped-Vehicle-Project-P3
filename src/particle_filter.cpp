@@ -209,9 +209,9 @@ Particle ParticleFilter::SetAssociations(Particle& particle, const std::vector<i
                                      const std::vector<double>& sense_x, const std::vector<double>& sense_y)
 {
  	// Clear the previous associations and world coordinates
-	particle.associations.clear();
-	particle.sense_x.clear();
-	particle.sense_y.clear();
+//	particle.associations.clear();
+//	particle.sense_x.clear();
+//	particle.sense_y.clear();
 
 	// Assign particles to associations and world coordinates
     particle.associations = associations;
