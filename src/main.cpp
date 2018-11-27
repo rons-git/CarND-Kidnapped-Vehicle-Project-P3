@@ -16,7 +16,7 @@ std::string hasData(std::string s) {
   auto found_null = s.find("null");
   auto b1 = s.find_first_of("[");
   auto b2 = s.find_first_of("]");
-  cout << "b1:" << b1 << " b2:" << b2 << " s:" << s << endl;
+  cout << "b1:" << b1 << " b2:" << b2 << endl;
   if (found_null != std::string::npos) {
     return "";
   }
