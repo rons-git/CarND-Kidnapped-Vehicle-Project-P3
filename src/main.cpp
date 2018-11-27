@@ -84,8 +84,6 @@ int main()
 			pf.prediction(delta_t, sigma_pos, previous_velocity, previous_yawrate);
 		  }
 
-		  cout << "Initialized" << endl;
-
 		  // receive noisy observation data from the simulator
 		  // sense_observations in JSON format [{obs_x,obs_y},{obs_x,obs_y},...{obs_x,obs_y}]
 		  	vector<LandmarkObs> noisy_observations;
@@ -114,10 +112,13 @@ int main()
 				noisy_observations.push_back(obs);
         	}
 
+            cout << "Noisy observations received" << endl;
+
 		  // Update the weights and resample
 		  pf.updateWeights(sensor_range, sigma_landmark, noisy_observations, map);
-		  pf.resample();
+		  cout << "Weights Updated" << endl;
 
+		  pf.resample();
 		  cout << "Finished Resampling" << endl;
 
 		  // Calculate and output the average weighted error of the particle filter over all time steps so far.
