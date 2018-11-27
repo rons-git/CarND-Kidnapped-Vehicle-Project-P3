@@ -23,10 +23,6 @@ The particle filter runs in 51.54 seconds (see above)
 
 **Does your code use a particle filter to localize the robot?**
 
-The particle filter code:
+The particle filter code is based on the algorithm presented in Lesson 14, Implementation of a particle Filter:
 
--   Follows the framework provided in the Kidnapped Vehicle project workspace,
-
--   Is based on the code and principals discussed in Lesson 14: Implementation of a Particle Filter,
-
--   Successfully runs in the simulator
+ ![](media/Algorithm.png)
