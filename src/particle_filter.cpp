@@ -25,7 +25,7 @@ default_random_engine gen;
 void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
 	// Set the number of particles
-	num_particles = 100;
+	num_particles = 300;
 
 
 	normal_distribution<double> dist_x(0, std[0]);
