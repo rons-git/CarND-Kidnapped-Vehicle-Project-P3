@@ -112,8 +112,6 @@ int main()
 				noisy_observations.push_back(obs);
         	}
 
-            cout << "Noisy observations received" << endl;
-
 		  // Update the weights and resample
 		  pf.updateWeights(sensor_range, sigma_landmark, noisy_observations, map);
 		  cout << "Weights Updated" << endl;

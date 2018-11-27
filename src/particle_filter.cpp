@@ -130,6 +130,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
         		predicted_landmarks.push_back(curr_lm);
       		}
     	}
+    	cout << "Predicted landmark locations set" << endl;
     	// Transform observations from vehicle's coordinates to map's coordinate
     	vector<LandmarkObs> transformed_observations;
 
@@ -146,7 +147,9 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 
     		transformed_observations.push_back(transformed_ob);
     	}
+    	cout << "Observations transformed" << endl;
     	dataAssociation(predicted_landmarks, transformed_observations);
+    	cout << "Data associated" << endl;
 
     	// Update weights
     	double total_weight = 1.0;
@@ -183,9 +186,13 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
         }
         particles[i].weight = total_weight;
         weights[i] = total_weight;
+        cout << "Weights Updated" << endl;
 
         SetAssociations(particles[i], associations_vec, sense_x_vec, sense_y_vec);
+        cout << "Associations set" << endl;
+
     	predicted_landmarks.clear();
+    	cout << "Landmarks cleared" << endl;
 	}
 }
 
