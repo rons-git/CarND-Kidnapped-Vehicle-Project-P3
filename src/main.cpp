@@ -16,6 +16,7 @@ std::string hasData(std::string s) {
   auto found_null = s.find("null");
   auto b1 = s.find_first_of("[");
   auto b2 = s.find_first_of("]");
+  cout << "b1:" << b1 << " b2:" << b2 << endl;
   if (found_null != std::string::npos) {
     return "";
   }
@@ -50,8 +51,6 @@ int main()
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
-
-    cout << "I am here" << endl;
 
     if (length && length > 2 && data[0] == '4' && data[1] == '2')
     {
