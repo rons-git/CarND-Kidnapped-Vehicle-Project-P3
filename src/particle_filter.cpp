@@ -208,11 +208,6 @@ void ParticleFilter::resample() {
 Particle ParticleFilter::SetAssociations(Particle& particle, const std::vector<int>& associations,
                                      const std::vector<double>& sense_x, const std::vector<double>& sense_y)
 {
- 	// Clear the previous associations and world coordinates
-//	particle.associations.clear();
-//	particle.sense_x.clear();
-//	particle.sense_y.clear();
-
 	// Assign particles to associations and world coordinates
     particle.associations = associations;
     particle.sense_x = sense_x;
