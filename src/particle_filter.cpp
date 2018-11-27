@@ -188,7 +188,6 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
         weights[i] = total_weight;
         cout << "Weights Updated" << endl;
 
-        cout << particles[i];
         //SetAssociations(particles[i], associations_vec, sense_x_vec, sense_y_vec);
         SetAssociations(associations_vec, sense_x_vec, sense_y_vec);
         cout << "Associations set" << endl;
