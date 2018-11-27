@@ -191,7 +191,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
         SetAssociations(particles[i], associations_vec, sense_x_vec, sense_y_vec);
         cout << "Associations set" << endl;
 
-    	predicted_landmarks.clear();
+    	//predicted_landmarks.clear();
     	cout << "Landmarks cleared" << endl;
 	}
 }
