@@ -3,6 +3,10 @@ Project 3, Term 2: Kidnapped Vehicle
 
 ### Final Result
 
+My c++ skills continue to improve, but the projects are also getting more difficult.
+Since I'm still far from an expert, I used Chao Wang's project as a reference for
+tying lesson 14 together.
+
 ![](media/Result.gif)
 
 ### Accuracy
