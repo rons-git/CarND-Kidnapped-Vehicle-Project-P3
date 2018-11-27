@@ -188,6 +188,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
         weights[i] = total_weight;
         cout << "Weights Updated" << endl;
 
+        cout << i << endl;
         SetAssociations(particles[i], associations_vec, sense_x_vec, sense_y_vec);
         cout << "Associations set" << endl;
 
@@ -212,7 +213,7 @@ void ParticleFilter::resample() {
 	particles = resampled_particles;
 }
 
-Particle ParticleFilter::SetAssociations(Particle particle, const std::vector<int>& associations,
+Particle ParticleFilter::SetAssociations(Particle& particle, const std::vector<int>& associations,
                                      const std::vector<double>& sense_x, const std::vector<double>& sense_y)
 {
     cout << "Begin Set Associations:";
