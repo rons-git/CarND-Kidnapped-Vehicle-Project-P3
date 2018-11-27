@@ -186,7 +186,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 
     	predicted_landmarks.clear();
 	}
-	SetAssociations(particles, associations_vec, sense_x_vec, sense_y_vec);
+	//SetAssociations(particles, associations_vec, sense_x_vec, sense_y_vec);
 
 }
 
