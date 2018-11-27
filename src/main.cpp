@@ -51,12 +51,13 @@ int main()
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
 
-    cout << "Data: " << std::string(data) << endl;
+    cout << "I am here" << endl;
 
     if (length && length > 2 && data[0] == '4' && data[1] == '2')
     {
 
       auto s = hasData(std::string(data));
+      cout << "Data: " << s << endl;
       if (s != "") {
 
 
