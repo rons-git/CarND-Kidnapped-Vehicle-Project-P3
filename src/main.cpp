@@ -62,7 +62,6 @@ int main()
 
         auto j = json::parse(s);
         std::string event = j[0].get<std::string>();
-        cout << "Event: "<< event << endl;
 
         if (event == "telemetry") {
           // j[1] is the data JSON object
@@ -84,6 +83,8 @@ int main()
 
 			pf.prediction(delta_t, sigma_pos, previous_velocity, previous_yawrate);
 		  }
+
+		  cout << "Initialized" << endl;
 
 		  // receive noisy observation data from the simulator
 		  // sense_observations in JSON format [{obs_x,obs_y},{obs_x,obs_y},...{obs_x,obs_y}]
