@@ -212,8 +212,7 @@ void ParticleFilter::resample() {
 	particles = resampled_particles;
 }
 
-Particle ParticleFilter::SetAssociations(Particle& particle, const std::vector<int>& associations,
-                                     const std::vector<double>& sense_x, const std::vector<double>& sense_y)
+Particle ParticleFilter::SetAssociations(Particle particle, std::vector<int> associations, std::vector<double> sense_x, std::vector<double> sense_y)
 {
     cout << "Begin Set Associations:";
     // Clear the previous associations
