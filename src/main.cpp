@@ -43,8 +43,6 @@ int main()
 	  return -1;
   }
 
-  cout << "Map is loaded" << endl;
-
   // Create particle filter
   ParticleFilter pf;
 
@@ -53,7 +51,7 @@ int main()
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
 
-    cout << "Data: " << data << endl;
+    cout << "Data: " << std::string(data) << endl;
 
     if (length && length > 2 && data[0] == '4' && data[1] == '2')
     {
