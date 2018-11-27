@@ -151,9 +151,9 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
     	// Update weights
     	double total_weight = 1.0;
     	weights[i] = 1.0;
-    	vector<int> associations_vec;
-    	vector<double> sense_x_vec;
-    	vector<double> sense_y_vec;
+    	//vector<int> associations_vec;
+    	//vector<double> sense_x_vec;
+    	//vector<double> sense_y_vec;
 
     	for (int a = 0; a < transformed_observations.size(); a++)
     	{
@@ -177,17 +177,17 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
                                 (2 * (pred_x - obv_x) * (pred_y - obv_y)/(sqrt(std_landmark[0]) * sqrt(std_landmark[1])))));
 
             total_weight *= w;
-            associations_vec.push_back(obv_id);
-            sense_x_vec.push_back(obv_x);
-            sense_y_vec.push_back(obv_y);
+            //associations_vec.push_back(obv_id);
+            //sense_x_vec.push_back(obv_x);
+            //sense_y_vec.push_back(obv_y);
         }
         particles[i].weight = total_weight;
         weights[i] = total_weight;
 
-        //SetAssociations(particles[i], associations_vec, sense_x_vec, sense_y_vec);
-
     	predicted_landmarks.clear();
 	}
+	SetAssociations(particles, associations_vec, sense_x_vec, sense_y_vec);
+
 }
 
 void ParticleFilter::resample() {
