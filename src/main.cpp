@@ -27,7 +27,7 @@ std::string hasData(std::string s) {
 
 int main()
 {
-  cout  << "Beginning Particle Filter"
+  cout  << "Beginning Particle Filter";
   uWS::Hub h;
 
   //Set up parameters here
