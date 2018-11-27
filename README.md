@@ -1,73 +1,32 @@
-Project 2, Term 2: Unscented Kalman Filters
+Project 3, Term 2: Kidnapped Vehicle
 =======================
 
 ### Final Result
 
-![](media/Unscented_Kalman.gif)
-
-### Compiling
-
-#### Code must compile without errors using cmake and make.
-
-The code compiles without errors; however it generates numerous warnings. To correct this issue, CMakeLists.txt was modified as follows:
-
-| From:                                | To:                                     |
-|--------------------------------------|-----------------------------------------|
-| set(CMAKE_CXX_FLAGS "\${CXX_FLAGS}") | set(CMAKE_CXX_FLAGS "\${CXX_FLAGS} -w") |
-
-After the above modification, the [cmake] and [make] output looks good:
-
-![](media/Compile.png)
+![](media/Result.gif)
 
 ### Accuracy
 
-**px, py, vx, vy output coordinates must have an RMSE \<= [.09, .10, .40, .30]
-when using the file: "obj_pose-laser-radar-synthetic-input.txt" which is the
-same data file the simulator uses for Dataset 1.**
+**Does your particle filter localize the vehicle to within the desired accuracy?**
 
-Using Dataset 1, the RMSE is well under the target values for X, Y, VX and VY:
+Although desired measurments were not provided for this project, the particle filter simulator output indicates a successful execution:
 
-![](media/RMSE1.png)
+![](media/Success.png)
 
-Using Dataset 2, the RMSE is also below target on all values except VY:
+### Performance
 
-![](media/RMSE2.png)
+**Does your particle run within the specified time of 100 seconds?**
 
-### Follows the Correct Algorithm
+The particle filter runs in 51.54 seconds (see above)
 
-**Your Sensor Fusion algorithm follows the general processing flow as taught in
-the preceding lessons.**
+### General
 
-The Sensor Fusion algorithm follows the UKF Roadmap as described in the Unscented Kalman Filters lesson of Udacity's Self-Driving Car Engineer Nanodegree Program, Part 2 -  Sensor Fusion, Localization and Control:
+**Does your code use a particle filter to localize the robot?**
 
-![](media/UKF_Roadmap.png)
+The particle filter code:
 
-**Your Kalman Filter algorithm handles the first measurements appropriately.**
+-   Follows the framework provided in the Kidnapped Vehicle project workspace,
 
-The algorithm uses the first measurements to initialize the state vector. The state vector is initialized at the beginning of the UKD::ProcessMeasurement function.
+-   Is based on the code and principals discussed in Lesson 14: Implementation of a Particle Filter,
 
-**Your Kalman Filter algorithm first predicts then updates.**
-
-Upon receiving a measurement after the first, the algorithm predicts object
-position to the current timestamp and then updates the prediction using the new
-measurement.
-
-#### Your Kalman Filter can handle radar and lidar measurements.
-
-The algorithm calls the same function for both radar and lidar measurements; however, it sets up the appropriate matrices given the type of measurement.
-
-### Code Efficiency
-
-**Your algorithm should avoid unnecessary calculations.**
-
-I avoided the following:
-
--   Running the exact same calculation repeatedly when I could run it once,
-    store the value and then reuse the value later,
-
--   Loops that run too many times,
-
--   Creating unnecessarily complex data structures when simpler structures work
-    equivalently,
-
--   Unnecessary control flow checks.
+-   Successfully runs in the simulator
