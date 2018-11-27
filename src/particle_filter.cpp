@@ -189,7 +189,8 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
         cout << "Weights Updated" << endl;
 
         cout << particles[i];
-        SetAssociations(particles[i], associations_vec, sense_x_vec, sense_y_vec);
+        //SetAssociations(particles[i], associations_vec, sense_x_vec, sense_y_vec);
+        SetAssociations(associations_vec, sense_x_vec, sense_y_vec);
         cout << "Associations set" << endl;
 
     	predicted_landmarks.clear();
@@ -213,8 +214,14 @@ void ParticleFilter::resample() {
 	particles = resampled_particles;
 }
 
-Particle ParticleFilter::SetAssociations(Particle& particle, const std::vector<int>& associations,
+Particle ParticleFilter::SetAssociations(const std::vector<int>& associations,
                                      const std::vector<double>& sense_x, const std::vector<double>& sense_y)
+{
+}
+
+Particle ParticleFilter::SetAssociations1(Particle& particle, const std::vector<int>& associations,
+                                     const std::vector<double>& sense_x, const std::vector<double>& sense_y)
+
 {
     cout << "Begin Set Associations:";
     // Clear the previous associations
